@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/thursdayText"
+        android:id="@+id/thursdayDateTextView"
+        android:textAlignment="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/thursdayInfoText"
+        android:id="@+id/thursdayInfoTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/thursdayDateTextView"
+        android:textAlignment="center" />
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:paddingTop="60dp"
+        android:paddingBottom="35dp"
+        android:id="@+id/theListView">
+    </ListView>
+
+</RelativeLayout>

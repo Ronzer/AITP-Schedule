@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">AITP Schedule</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="thursdayText">Thursday, April 7, 2016</string>
+    <string name="fridayDateText">Friday, April 8, 2016</string>
+    <string name="saturdayDateText">Saturday, April 9, 2016</string>
+    <string name="sundayText">Sunday, April 10, 2016</string>
+    <string name="thursdayInfoText">*Networking Day*</string>
+    <string name="fridayInfoText">*Focus on IT Trends &amp; Issues*</string>
+    <string name="saturdayInfoText">*Focus on IT Hiring Trends*</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="exit">Exit</string>
+    <string name="certification">Show Certification</string>
+    <string name="contest">Show Contests</string>
+    <string name="session">Show Sessions</string>
+    <string name="general">Show General</string>
+    <string name="food">Show Food</string>
+    <string name="all">Show All</string>
+</resources>

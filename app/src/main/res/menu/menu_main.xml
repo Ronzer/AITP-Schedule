@@ -1,0 +1,55 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.mstc.student.aitpschedule.MainActivity">
+
+
+    <item
+        android:id="@+id/showSession"
+        android:orderInCategory="100"
+        android:title="@string/session"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/showContest"
+        android:orderInCategory="101"
+        android:title="@string/contest"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/showCertification"
+        android:orderInCategory="102"
+        android:title="@string/certification"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/showGeneral"
+        android:orderInCategory="103"
+        android:title="@string/general"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/showFood"
+        android:orderInCategory="104"
+        android:title="@string/food"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/showAll"
+        android:orderInCategory="105"
+        android:title="@string/all"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/contact_us"
+        android:orderInCategory="106"
+        android:title="@string/contact_us"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/exit"
+        android:orderInCategory="106"
+        android:title="@string/exit"
+        app:showAsAction="never"
+        />
+</menu>

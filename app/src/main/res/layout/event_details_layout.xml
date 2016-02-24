@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/event_name_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:textAlignment="center"
+        android:paddingTop="35dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginRight="35dp"
+        android:textAppearance="@style/AppTheme"
+        android:textSize="25sp"
+        android:paddingBottom="35dp"
+        />
+
+    <TextView
+        android:id="@+id/event_content_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text=""
+        android:textAppearance="@style/AppTheme"
+        android:textSize="14sp"
+        />
+
+    <TextView
+        android:id="@+id/event_location_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text=""
+        android:textAppearance="@style/AppTheme"
+        android:textSize="14sp"
+        />
+    <TextView
+        android:id="@+id/event_time_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:text=""
+        android:textAppearance="@style/AppTheme"
+        android:textSize="14sp"
+        />
+
+    <Button
+
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:text="OK"
+        android:textSize="15sp"
+        android:onClick="return_to_main"
+        />
+</LinearLayout>
