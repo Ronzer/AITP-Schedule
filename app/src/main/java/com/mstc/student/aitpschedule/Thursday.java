@@ -31,7 +31,7 @@ public class Thursday extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.thursday_layout, container, false);
-        ListView listViewAitpEvent;
+        final ListView listViewAitpEvent;
 
 
         thursdayEventList.add(new AitpEvent("AITP NCC Setup", "AITP NCC Setup Crew  Work Room and Crew Lunch", "10:00am  - 02:00pm", "Grand E",
@@ -54,7 +54,7 @@ public class Thursday extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                //listViewAitpEvent.setItemChecked(position, true);
                 Intent getThursdayDetails = new Intent(getActivity(), DetailsScreen.class);
                 AitpEvent clickedEvent = thursdayEventList.get(position);
 
