@@ -48,14 +48,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        setContentView(R.layout.splash_screen_layout);
+        setContentView(R.layout.activity_main);
         Handler h = new Handler();
 
 
+        /*
         h.postDelayed(new Runnable() {
             @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
             public void run() {
+            */
                 setContentView(R.layout.activity_main);
                 Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
                 setSupportActionBar(toolbar);
@@ -98,8 +100,8 @@ public class MainActivity extends AppCompatActivity {
                         snackbar.show();
                     }
                 });
-            }
-        }, 2000);
+         //   }
+       // }, 2000);
 
     }
 
