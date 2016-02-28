@@ -13,10 +13,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Sunday extends Fragment {
-
+    private String show = "";
     final List<AitpEvent> sundayEventList = new ArrayList<>();
 
     @Override
@@ -34,40 +35,76 @@ public class Sunday extends Fragment {
 
         sundayEventList.add(new AitpEvent("Meeting", "AITP NCC Conference Committee Meeting and Breakfast(6:30am) \n " +
                 "*Committee Members Only please", "6:30am  - 10:00am", "Hartsfield * Dulles",
-                AitpEvent.EventCategory.GENERAL));
+                AitpEvent.EventCategory.GENERAL,this.getCalendar(2016, 3, 10, 6,30)));
 
 
         listViewAitpEvent = (ListView) v.findViewById(R.id.theListView);
         listViewAitpEvent.setAdapter(new EventListAdapter(getContext(), R.layout.row_layout_3, sundayEventList));
+
+
         listViewAitpEvent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent getSundayDetails = new Intent(getActivity(), DetailsScreen.class);
+                if(sundayEventList.get(position).getSelected()) {
+                    sundayEventList.get(position).setSelected(false);
+                } else {
+                    sundayEventList.get(position).setSelected(true);
+                }
 
-                AitpEvent clickedEvent = sundayEventList.get(position);
-                String title = clickedEvent.getEvent();
-
-                String description = clickedEvent.getDescription();
-                String time = clickedEvent.getTime();
-                String location = clickedEvent.getLocation();
-
-                getSundayDetails.putExtra("title", title);
-                getSundayDetails.putExtra("details", description);
-                getSundayDetails.putExtra("time", time);
-                getSundayDetails.putExtra("location", location);
-
-                startActivity(getSundayDetails);
+                loadList();
             }
         });
 
         return v;
 
+
     }
+
+
+
+    private void loadList() {
+        switch(show){
+            case "ALL":
+                showAll(getView());
+                break;
+            case "FOOD":
+                showFood(getView());
+                break;
+            case "SESSION":
+                showSessions(getView());
+                break;
+            case "CERT":
+                showCertifications(getView());
+                break;
+            case"CONTESTS":
+                showContests(getView());
+                break;
+            case "GENERAL":
+                showGeneral(getView());
+                break;
+            default:
+                showAll(getView());
+        }
+    }
+
+    private Calendar getCalendar(int year, int month, int day, int hour, int minute) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, day);
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND,0);
+        return c;
+
+    }
+
     //***********************************************************************************************
     //This method filters the current days events and only shows events of the contests Category
     //*********************************************************************************************
     public void showContests(View v) {
+        show= "CONTESTS";
         final List<AitpEvent> contestList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -87,6 +124,7 @@ public class Sunday extends Fragment {
     //This method filters the current days events and only shows events of the Certifications Category
     //*********************************************************************************************
     public void showCertifications(View v) {
+        show= "CERT";
         final List<AitpEvent> certificationList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -104,6 +142,7 @@ public class Sunday extends Fragment {
     //This method filters the current days events and only shows events of the Session Category
     //*********************************************************************************************
     public void showSessions(View v) {
+        show= "SESSIONS";
         final List<AitpEvent> sessionList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -121,6 +160,7 @@ public class Sunday extends Fragment {
     //This method filters the current days events and only shows events of the food Category
     //*********************************************************************************************
     public void showFood(View v) {
+        show= "FOOD";
         final List<AitpEvent> foodList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -138,22 +178,24 @@ public class Sunday extends Fragment {
     //This method filters the current days events and only shows events of the food Category
     //*********************************************************************************************
     public void showAll(View v) {
-        final List<AitpEvent> foodList = new ArrayList<>();
+        show= "ALL";
+        final List<AitpEvent> allList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
 
         for (int count = 0; count < sundayEventList.size(); count++) {
             tempEvent = sundayEventList.get(count);
-            foodList.add(tempEvent);
+            allList.add(tempEvent);
         }
         contestListView = (ListView) v.findViewById(R.id.theListView);
-        contestListView.setAdapter(new EventListAdapter(getContext(), R.layout.row_layout_3, foodList));
+        contestListView.setAdapter(new EventListAdapter(getContext(), R.layout.row_layout_3, allList));
     }
     //***********************************************************************************************
     //This method filters the current days events and only shows events of the general Category
     //*********************************************************************************************
 
     public void showGeneral(View v) {
+        show= "GENERAL";
         final List<AitpEvent> generalList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
