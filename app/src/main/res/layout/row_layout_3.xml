@@ -9,11 +9,11 @@
     <LinearLayout android:id="@+id/thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="3dip"
+        android:padding="3dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginRight="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginEnd="4dp"
         >
         <ImageView
             android:id="@+id/eventDotImageView"
@@ -29,7 +29,7 @@
         android:layout_toRightOf="@+id/thumbnail"
         android:textColor="#040404"
         android:typeface="sans"
-        android:textSize="22sp"
+        android:textSize="17sp"
         android:textStyle="bold"/>
 
     <TextView
@@ -41,6 +41,16 @@
         android:textSize="12sp"
         android:layout_marginTop="1dp"
         android:layout_toRightOf="@+id/thumbnail"  />
+    <Button
+        android:layout_width="75dp"
+        android:layout_height="60dp"
+        android:id="@+id/detailsButton"
+        android:text="Event Details"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="5dp"
+        android:focusable="false"
+        android:layout_centerVertical="true"
+        android:textSize="12dp"/>
 
 
 </RelativeLayout>

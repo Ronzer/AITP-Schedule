@@ -17,6 +17,8 @@ public class AitpEvent {
     private EventCategory category;
     private Calendar eventDateTime;
     private String eventDateString = "";
+    private boolean eventSelected =false;
+    private String eventDateTimeString ="";
 
     public AitpEvent(String aEvent, String aDescription, String aTime, String aLocation, EventCategory aCategory, Calendar aEventDateTime) {
         super();
@@ -26,17 +28,25 @@ public class AitpEvent {
         this.description = aDescription;
         this.time = aTime;
         this.location = aLocation;
-
+        this.eventSelected  =false;
         eventDateTime = aEventDateTime;
 
 
 
 
     }
+    public String getDateTime(){
+        eventDateTimeString = sdfDateTime.format(this.eventDateTime.getTime());
+        return eventDateTimeString;
+    }
     public String getDate() {
 
         eventDateString = sdfDate.format(this.eventDateTime.getTime());
         return eventDateString;
+    }
+
+    public boolean getSelected() {
+        return eventSelected;
     }
 
     public EventCategory getCategory() {
@@ -57,6 +67,9 @@ public class AitpEvent {
     }
 
 
+    public void setSelected(boolean aeventSelected) {
+        this.eventSelected = aeventSelected;
+    }
     public void setEvent(String eventText) {
         this.event = eventText;
     }
