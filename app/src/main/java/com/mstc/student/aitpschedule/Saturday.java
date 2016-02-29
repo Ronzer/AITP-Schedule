@@ -15,10 +15,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class Saturday extends Fragment {
-
+    private String show = "";
     final List<AitpEvent> saturdayEventList = new ArrayList<>();
 
     @Override
@@ -35,35 +36,35 @@ public class Saturday extends Fragment {
         ListView listViewAitpEvent;
         
         saturdayEventList.add(new AitpEvent("Registration and Information", "Registration and Information on the days events.", "7:30am - 02:00pm", "Grand Ballroom Foyer",
-                AitpEvent.EventCategory.GENERAL));
+                AitpEvent.EventCategory.GENERAL,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Recognition & Breakfast", "Conference Recognition Breakfast plus the announcement " +
                 "of the AITP chapter banner shirt & video contest winners.", "07:30am - 08:30am", "Grand EFGH",
-                AitpEvent.EventCategory.GENERAL));
+                AitpEvent.EventCategory.GENERAL,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Contest", "Security Qualification Exams", "9:00am - 10:30am", "Rosemont: Lab A",
-                AitpEvent.EventCategory.CONTEST));
+                AitpEvent.EventCategory.CONTEST,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Contest", "Java Developer sponsored by State Farm", "9:00am - 1:00pm", "Rosemont Lab B",
-                AitpEvent.EventCategory.CONTEST));
+                AitpEvent.EventCategory.CONTEST,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Contest", "Student 'Web Project' Finalist Presentations.", "9:00am - 12:00pm", "Grand A",
-                AitpEvent.EventCategory.CONTEST));
+                AitpEvent.EventCategory.CONTEST,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Certification", "Certification: ICCP Exams (Core & Specialty Exams)", "9:00am - 4:00pm", "O'Hare(Lobby Level)",
-                AitpEvent.EventCategory.CERTIFICATION));
+                AitpEvent.EventCategory.CERTIFICATION,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Career Fair", "AITP NCC Career Fair with Morning Break", "9:00am - 12:00pm", "Grand Ballroom Foyer",
-                AitpEvent.EventCategory.FOOD));
+                AitpEvent.EventCategory.FOOD,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Session", "Spotlight on Technology Session 5: IT Hiring Trends \n 10 Years from Now - IT Career Futures to Plan for Now! \n " +
                 "Myles Miller, LEADUP CEO and Founder", "9:00am - 10:00am", "Grand C/B",
-                AitpEvent.EventCategory.SESSION));
+                AitpEvent.EventCategory.SESSION,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Session", "Spotlight on Technology Session 6: IT Hiring Trends \n Job Search Re-imagined. \n " +
                 "Chris Czarnik, Fox Valley Technical College Manager of Employment Connections", "10:30am - 11:30am", "Grand C/B",
-                AitpEvent.EventCategory.SESSION));
+                AitpEvent.EventCategory.SESSION,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Contest", "Security Finals", "10:30am - 1:00pm", "Rosemont: Lab A",
-                AitpEvent.EventCategory.CONTEST));
+                AitpEvent.EventCategory.CONTEST,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Lunch Break", "Lunch and the Afternoon on your own as you Explore Chicagoland. \n\n " +
                 "Here are some events or activities for you to consider: \n " +
                 "- AITP NCC Great Chicago Challenge (hosted by Waukesha County Technical College) \n " +
                 "- AITP NCC Bowling & Trivia Challenge at Kings Bowl(hosted by Grand Valley State University)", "11:30am - 6:00pm", "Chicagoland",
-                AitpEvent.EventCategory.FOOD));
+                AitpEvent.EventCategory.FOOD,this.getCalendar(2016, 3, 9, 10,0)));
         saturdayEventList.add(new AitpEvent("Session", "Conference Closing Awards Banquet", "6:30pm - 9:00pm", "Grand EFGH",
-                AitpEvent.EventCategory.SESSION));
+                AitpEvent.EventCategory.SESSION,this.getCalendar(2016, 3, 9, 10,0)));
 
 
         listViewAitpEvent = (ListView) v.findViewById(R.id.theListView);
@@ -72,31 +73,65 @@ public class Saturday extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent getSaturdayDetails = new Intent(getActivity(), DetailsScreen.class);
+                if(saturdayEventList.get(position).getSelected()) {
+                    saturdayEventList.get(position).setSelected(false);
+                } else {
+                    saturdayEventList.get(position).setSelected(true);
+                }
 
-                AitpEvent clickedEvent = saturdayEventList.get(position);
-                String title = clickedEvent.getEvent();
-
-
-                String description = clickedEvent.getDescription();
-                String time = clickedEvent.getTime();
-                String location = clickedEvent.getLocation();
-
-                getSaturdayDetails.putExtra("title", title);
-                getSaturdayDetails.putExtra("details", description);
-                getSaturdayDetails.putExtra("time", time);
-                getSaturdayDetails.putExtra("location", location);
-
-                startActivity(getSaturdayDetails);
+                loadList();
             }
         });
 
         return v;
+
+
     }
-        //***********************************************************************************************
-        //This method filters the current days events and only shows events of the contests Category
-        //*********************************************************************************************
+
+
+
+    private void loadList() {
+        switch(show){
+            case "ALL":
+                showAll(getView());
+                break;
+            case "FOOD":
+                showFood(getView());
+                break;
+            case "SESSION":
+                showSessions(getView());
+                break;
+            case "CERT":
+                showCertifications(getView());
+                break;
+            case"CONTESTS":
+                showContests(getView());
+                break;
+            case "GENERAL":
+                showGeneral(getView());
+                break;
+            default:
+                showAll(getView());
+        }
+    }
+
+    private Calendar getCalendar(int year, int month, int day, int hour, int minute) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, day);
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND,0);
+        return c;
+
+    }
+
+    //***********************************************************************************************
+    //This method filters the current days events and only shows events of the contests Category
+    //*********************************************************************************************
     public void showContests(View v) {
+        show= "CONTESTS";
         final List<AitpEvent> contestList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -116,6 +151,7 @@ public class Saturday extends Fragment {
     //This method filters the current days events and only shows events of the Certifications Category
     //*********************************************************************************************
     public void showCertifications(View v) {
+        show= "CERT";
         final List<AitpEvent> certificationList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -133,6 +169,7 @@ public class Saturday extends Fragment {
     //This method filters the current days events and only shows events of the Session Category
     //*********************************************************************************************
     public void showSessions(View v) {
+        show= "SESSIONS";
         final List<AitpEvent> sessionList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -150,6 +187,7 @@ public class Saturday extends Fragment {
     //This method filters the current days events and only shows events of the food Category
     //*********************************************************************************************
     public void showFood(View v) {
+        show= "FOOD";
         final List<AitpEvent> foodList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -167,22 +205,24 @@ public class Saturday extends Fragment {
     //This method filters the current days events and only shows events of the food Category
     //*********************************************************************************************
     public void showAll(View v) {
-        final List<AitpEvent> foodList = new ArrayList<>();
+        show= "ALL";
+        final List<AitpEvent> allList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
 
         for (int count = 0; count < saturdayEventList.size(); count++) {
             tempEvent = saturdayEventList.get(count);
-            foodList.add(tempEvent);
+            allList.add(tempEvent);
         }
         contestListView = (ListView) v.findViewById(R.id.theListView);
-        contestListView.setAdapter(new EventListAdapter(getContext(), R.layout.row_layout_3, foodList));
+        contestListView.setAdapter(new EventListAdapter(getContext(), R.layout.row_layout_3, allList));
     }
     //***********************************************************************************************
     //This method filters the current days events and only shows events of the general Category
     //*********************************************************************************************
 
     public void showGeneral(View v) {
+        show= "GENERAL";
         final List<AitpEvent> generalList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;

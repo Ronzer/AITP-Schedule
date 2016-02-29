@@ -1,7 +1,7 @@
 package com.mstc.student.aitpschedule;
 
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,12 +14,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
 public class Thursday extends Fragment {
 
     final List<AitpEvent> thursdayEventList = new ArrayList<>();
+    private String show = "";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,18 +36,24 @@ public class Thursday extends Fragment {
         final ListView listViewAitpEvent;
 
 
+
+
+
         thursdayEventList.add(new AitpEvent("AITP NCC Setup", "AITP NCC Setup Crew  Work Room and Crew Lunch", "10:00am  - 02:00pm", "Grand E",
-                AitpEvent.EventCategory.GENERAL));
+                AitpEvent.EventCategory.GENERAL,this.getCalendar(2016, 3, 7, 10,0)));
         thursdayEventList.add(new AitpEvent("Registration", "Registration, Information and Career Fair Preview", "02:00pm - 09:00pm", "Grand Ballroom Foyer",
-                AitpEvent.EventCategory.GENERAL));
+                AitpEvent.EventCategory.GENERAL,this.getCalendar(2016, 3, 7, 10, 0)));
         thursdayEventList.add(new AitpEvent("Contest Concierge", "Contest Concierge: Bring-Your-Own-Computer Checkup and Contest Q & A Station!", "02:00pm - 09:00pm", "Rosemont Foyer",
-                AitpEvent.EventCategory.GENERAL));
+                AitpEvent.EventCategory.GENERAL, this.getCalendar(2016, 3, 7, 10,0)));
         thursdayEventList.add(new AitpEvent("Pre-Conference Workshop", "Pre-Conference Workshop: Sharpening your Interviewing & Networking Skills", "03:00pm - 04:00pm", "Grand C/B",
-                AitpEvent.EventCategory.SESSION));
+                AitpEvent.EventCategory.SESSION, this.getCalendar(2016, 3, 7, 10,0)));
         thursdayEventList.add(new AitpEvent("AITP Welcome to Chicago", "AITP Welcome to Chicago Scavenger Hunt & Reception", "04:00pm - 06:00pm", "Grand FGH",
-                AitpEvent.EventCategory.GENERAL));
+                AitpEvent.EventCategory.GENERAL, this.getCalendar(2016, 3, 7, 10,0)));
         thursdayEventList.add(new AitpEvent("Contests", "Contests: Microsoft Office Solutions @ Systems Analysis & Design", "06:30pm  - 10:30pm", "Rosemont: Lab A/B",
-                AitpEvent.EventCategory.CONTEST));
+                AitpEvent.EventCategory.CONTEST, this.getCalendar(2016, 3, 7, 10,0)));
+
+
+
 
         listViewAitpEvent = (ListView) v.findViewById(R.id.theListView);
         listViewAitpEvent.setAdapter(new EventListAdapter(getContext(), R.layout.row_layout_3, thursdayEventList));
@@ -55,29 +63,61 @@ public class Thursday extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //listViewAitpEvent.setItemChecked(position, true);
-                Intent getThursdayDetails = new Intent(getActivity(), DetailsScreen.class);
-                AitpEvent clickedEvent = thursdayEventList.get(position);
 
-                String title = clickedEvent.getEvent();
-                String description = clickedEvent.getDescription();
-                String time = clickedEvent.getTime();
-                String location = clickedEvent.getLocation();
+                if(thursdayEventList.get(position).getSelected()) {
+                    thursdayEventList.get(position).setSelected(false);
+                } else {
+                    thursdayEventList.get(position).setSelected(true);
+                }
 
-                getThursdayDetails.putExtra("title", title);
-                getThursdayDetails.putExtra("details", description);
-                getThursdayDetails.putExtra("time", time);
-                getThursdayDetails.putExtra("location", location);
-
-                startActivity(getThursdayDetails);
+                loadList();
             }
         });
     return v;
 }
 
+    private void loadList() {
+        switch(show){
+            case "ALL":
+                showAll(getView());
+                break;
+            case "FOOD":
+                showFood(getView());
+                break;
+            case "SESSION":
+                showSessions(getView());
+                break;
+            case "CERT":
+                showCertifications(getView());
+                break;
+            case"CONTESTS":
+                showContests(getView());
+                break;
+            case "GENERAL":
+                showGeneral(getView());
+                break;
+            default:
+                showAll(getView());
+        }
+    }
+
+    private Calendar getCalendar(int year, int month, int day, int hour, int minute) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month);
+        c.set(Calendar.DAY_OF_MONTH, day);
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, minute);
+        c.set(Calendar.SECOND,0);
+        return c;
+
+    }
+
     //***********************************************************************************************
     //This method filters the current days events and only shows events of the contests Category
     //*********************************************************************************************
     public void showContests(View v) {
+        show= "CONTESTS";
         final List<AitpEvent> contestList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -97,6 +137,7 @@ public class Thursday extends Fragment {
     //This method filters the current days events and only shows events of the Certifications Category
     //*********************************************************************************************
     public void showCertifications(View v) {
+        show= "CERT";
         final List<AitpEvent> certificationList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -114,6 +155,7 @@ public class Thursday extends Fragment {
     //This method filters the current days events and only shows events of the Session Category
     //*********************************************************************************************
     public void showSessions(View v) {
+        show= "SESSIONS";
         final List<AitpEvent> sessionList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -131,6 +173,7 @@ public class Thursday extends Fragment {
     //This method filters the current days events and only shows events of the food Category
     //*********************************************************************************************
     public void showFood(View v) {
+        show= "FOOD";
         final List<AitpEvent> foodList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -148,6 +191,7 @@ public class Thursday extends Fragment {
     //This method filters the current days events and only shows events of the food Category
     //*********************************************************************************************
     public void showAll(View v) {
+        show= "ALL";
         final List<AitpEvent> foodList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
@@ -164,6 +208,7 @@ public class Thursday extends Fragment {
     //*********************************************************************************************
 
     public void showGeneral(View v) {
+        show= "GENERAL";
         final List<AitpEvent> generalList = new ArrayList<>();
         AitpEvent tempEvent;
         ListView contestListView;
